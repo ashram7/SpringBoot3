@@ -1,2 +1,5 @@
-package com.hschool.demo.chapter02;public interface Greet {
+package com.hschool.demo.chapter02;
+
+public interface Greet { //인터페이스를 이용하여 의존성을 만든다.
+    void greeting();
 }
