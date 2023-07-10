@@ -4,3 +4,11 @@ pw : ay2111!!
 local : Korean, Korea
 
 PostgreSQL 14.6.2-2 선택 
+
+
+
+INSERT INTO member (name) VALUES ('홀길동');
+INSERT INTO member (name) VALUES ('이순신');
+
+
+
