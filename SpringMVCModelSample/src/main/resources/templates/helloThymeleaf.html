@@ -63,5 +63,23 @@
             [[*{id}]] : [[*{name}]]
         </p>
     </div>
+
+    <div th:with="x=1000000, y=123456.789">
+        정수 형식:
+        <span th:text="${#numbers.formatInteger(x, 3, 'COMMA')}"></span>
+        <br/>
+        부동 소수점 형식:
+        <span th:text="${#numbers.formatDecimal(y, 3, 'COMMA', 2,'POINT')}"></span>
+    </div>
+
+    <div th:with="today=${#dates.createNow()}">
+        yyyy/mm/dd 형식: <span th:text="${#dates.format(today, 'yyyy/MM/dd')}"></span><br/>
+        yyyy년 mm월 dd일 형식: <span th:text="${#dates.format(today, 'yyyy년 MM월 dd일')}"></span><br/>
+        yyyy년: <span th:text="${#dates.year(today)}"></span><br/>
+        MM월: <span th:text="${#dates.month(today)}"></span><br/>
+        dd일: <span th:text="${#dates.day(today)}"></span><br/>
+        요일: <span th:text="${#dates.dayOfWeek(today)}"></span><br/>
+    </div>
+
 </body>
 </html>
