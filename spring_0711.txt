@@ -11,3 +11,12 @@ SQL> SELECT DBMS_XDB.GETHTTPPORT() FROM DUAL;
 SQL> EXEC DBMS_XDB.SETHTTPPORT(9090);
 
 
+
+http://localhost:8080/hello/view
+
+
+
+
+
+
+

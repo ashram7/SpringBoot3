@@ -13,4 +13,10 @@ public class HelloViewController {
     public String helloView(){
         return "hello";
     }
+
+    //@GetMapping("view2")
+    @GetMapping( value = { "view2", "view2spring" })
+    public String morning(){
+        return "morning";
+    }
 }
