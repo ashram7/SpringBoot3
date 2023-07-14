@@ -42,4 +42,9 @@ public class PathVariableController {
         return "submit/c";
     }
 
+    @PostMapping(value = "send", params = "h")
+    public String showHView() {
+        // 반환값으로 뷰 이름을 돌려줌
+        return "show";
+    }
 }
