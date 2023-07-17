@@ -16,7 +16,7 @@ import java.util.Optional;
 public class TestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args).getBean(TestApplication.class).execute();
+		SpringApplication.run(TestApplication.class, args);
 	}
 
 	@Autowired
@@ -34,7 +34,7 @@ public class TestApplication {
 		//삭제처리
 		//deleteTest();
 		//퀴즈실행
-		doTest();
+		//doTest();
 	}
 
 	private void setup() {
@@ -101,7 +101,7 @@ public class TestApplication {
 			System.out.println("해당 데이터는 존재하지 않습니다.");
 		}
 		System.out.println("--- 퀴즈 １건 취득 완료 ---");
-		Boolean myAnswer = false;
+		Boolean myAnswer = true;
 		Integer id = testOpt.get().getId();
 		if (service.checkTest(id, myAnswer)) {
 			System.out.println("정답입니다!!!");

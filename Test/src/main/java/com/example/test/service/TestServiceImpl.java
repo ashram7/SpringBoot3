@@ -35,7 +35,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Boolean checkTest(Integer id, Boolean myAnswer) {
+    public Boolean checkTest(Integer id, Boolean myAnswer) {//var Integer aaa
         Boolean check = false;
         Optional<Test> optTest = repository.findById(id);
         if (optTest.isPresent()) {
