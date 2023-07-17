@@ -24,15 +24,17 @@ public class TestApplication {
 
 	private void execute() {
 		// 등록 처리
-		setup();
+		//setup();
 		// 전체 항목 취득
-		showList();
+		//showList();
 		// 1개 항목 취득
-		showOne();
+		//showOne();
 		//변경처리
 		//updateTest();
 		//삭제처리
 		//deleteTest();
+		//퀴즈실행
+		doTest();
 	}
 
 	private void setup() {
