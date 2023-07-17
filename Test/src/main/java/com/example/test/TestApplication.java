@@ -27,6 +27,8 @@ public class TestApplication {
 		//showOne();
 		//변경처리
 		updateTest();
+		//삭제처리
+		deleteTest();
 	}
 
 	private void setup() {
@@ -67,5 +69,11 @@ public class TestApplication {
 		test1 = repository.save(test1);
 		System.out.println("변경된 데이터는 " + test1 + "입니다.");
 		System.out.println("--- 변경 처리 완료 ---");
+	}
+
+	private void deleteTest() {
+		System.out.println("--- 삭제 처리 개시 ---");
+		repository.deleteById(2);
+		System.out.println("--- 삭제 처리 완료 ---");
 	}
 }
