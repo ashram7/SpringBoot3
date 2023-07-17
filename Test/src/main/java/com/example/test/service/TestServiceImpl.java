@@ -3,10 +3,15 @@ package com.example.test.service;
 import com.example.test.entity.Test;
 import com.example.test.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
+@Transactional
 public class TestServiceImpl implements TestService {
+
     @Autowired
     TestRepository repository;
 
@@ -22,26 +27,38 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Optional<Test> selectOneRandomTest() {
-        return Optional.empty();
+        Integer randId = repository.getRandomId();
+        if (randId == null) {
+            return Optional.empty();
+        }
+        return repository.findById(randId);
     }
 
     @Override
     public Boolean checkTest(Integer id, Boolean myAnswer) {
-        return null;
+        Boolean check = false;
+        Optional<Test> optTest = repository.findById(id);
+        if (optTest.isPresent()) {
+            Test test = optTest.get();
+            if(test.getAnswer().equals(myAnswer)) {
+                check = true;
+            }
+        }
+        return check;
     }
 
     @Override
     public void insertTest(Test test) {
-
+        repository.save(test);
     }
 
     @Override
     public void updateTest(Test test) {
-
+        repository.save(test);
     }
 
     @Override
     public void deleteTestById(Integer id) {
-
+        repository.deleteById(id);
     }
 }
