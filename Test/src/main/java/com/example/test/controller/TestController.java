@@ -129,5 +129,40 @@ public class TestController {
         return form;
     }
 
+    @PostMapping("/delete")
+    public String delete(
+            @RequestParam("id") String id,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+        // 퀴즈 정보를 1건 삭제하고 리다이렉트
+        service.deleteTestById(Integer.parseInt(id));
+        redirectAttributes.addFlashAttribute("delcomplete", "삭제 완료했습니다");
+        return "redirect:/test";
+    }
 
+    @GetMapping("/play")
+    public String showTest(TestForm testForm, Model model) {
+        Optional<Test> testOpt = service.selectOneRandomTest();
+        if(testOpt.isPresent()) {
+            // TestForm으로 채우기
+            Optional<TestForm> testFormOpt = testOpt.map(t -> makeTestForm(t));
+            testForm = testFormOpt.get();
+        } else {
+            model.addAttribute("msg", "등록된 문제가 없습니다");
+            return "play";
+        }
+        model.addAttribute("testForm", testForm);
+
+        return "play";
+    }
+
+    @PostMapping("/check")
+    public String checkTest(TestForm testForm, @RequestParam Boolean answer, Model model){
+        if (service.checkTest(testForm.getId(), answer)) {
+            model.addAttribute("msg","정답입니다.");
+        } else {
+            model.addAttribute("msg","오답입니다.");
+        }
+        return "answer";
+    }
 }
