@@ -107,7 +107,27 @@ public class TestController {
             return "crud";
         }
     }
-
+    /*a(10)라는 변수와 b(20)라는 변수를 서로 바꾸는 방법 a(20) b(10)
+    temp(20) = b(20)
+    b(10) = a(10)
+    a(20) = temp(20)    */
+    private Test makeTest(TestForm testForm) {
+        Test test = new Test();
+        test.setId(testForm.getId());
+        test.setQuestion(testForm.getQuestion());
+        test.setAnswer(testForm.getAnswer());
+        test.setAuthor(testForm.getAuthor());
+        return test;
+    }
+    private TestForm makeTestForm(Test test) {
+        TestForm form = new TestForm();
+        form.setId(test.getId());
+        form.setQuestion(test.getQuestion());
+        form.setAnswer(test.getAnswer());
+        form.setAuthor(test.getAuthor());
+        form.setNewTest(false);
+        return form;
+    }
 
 
 }
