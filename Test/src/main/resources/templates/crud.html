@@ -10,7 +10,7 @@
     <!--/* 등록/변경 완료 메시지 */-->
     <p th:if="${complete}" th:text="${complete}" style="color:blue"></p>
     <!--등록과 변경 처리를 분리-->
-    <form method="POST" th:action="${testForm.newTest}? @{/test/insert} : @{/test/update}" th:object="${testForm}">
+    <form method="POST" th:action="${testForm.newTest} ? @{/test/insert} : @{/test/update}" th:object="${testForm}">
         <!--th:field 속성에 '*{필드명}'을 지정-->
         <label>퀴즈 내용: </label><br>
         <textarea rows="5" cols="50" th:field="*{question}"></textarea>
