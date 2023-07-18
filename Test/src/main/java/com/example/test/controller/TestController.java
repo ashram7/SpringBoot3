@@ -8,11 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/test")
@@ -61,5 +60,54 @@ public class TestController {
         }
 
     }
+
+    @GetMapping("/{id}")
+    public String showUpdate(TestForm testForm, @PathVariable Integer id, Model model) {
+        // Test를 취득(Optional로 래핑)
+        Optional<Test> testOpt = service.selectOneById(id);
+
+        // TestForm에 채워넣기
+        Optional<TestForm> testFormOpt = testOpt.map(t -> makeTestForm(t));
+
+        // TestForm이 null이 아니라면 값을 취득
+        if(testFormOpt.isPresent()) {
+            testForm = testFormOpt.get();
+        }
+
+        // 변경용 모델 생성
+        makeUpdateModel(testForm, model);
+        return "crud";
+    }
+    /* function move(x){return y * y;} , (x) => y * y; */
+    private void makeUpdateModel(TestForm testForm, Model model) {
+        model.addAttribute("id", testForm.getId());
+        testForm.setNewTest(false);
+        model.addAttribute("testForm", testForm);
+        model.addAttribute("title", "변경 폼");
+    }
+
+    @PostMapping("/update")
+    public String update(
+            @Validated TestForm testForm,
+            BindingResult result,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+        // TestForm에서 Test으로 채우기
+        Test test = makeTest(testForm);
+        // 입력 체크
+        if (!result.hasErrors()) {
+            // 변경 처리, Flash scope를 사용해서 리다이렉트 설정
+            service.updateTest(test);
+            redirectAttributes.addFlashAttribute("complete", "변경이 완료되었습니다");
+            // 변경 화면을 표시
+            return "redirect:/test/" + test.getId();
+        } else {
+            // 변경용 모델을 생성
+            makeUpdateModel(testForm, model);
+            return "crud";
+        }
+    }
+
+
 
 }
